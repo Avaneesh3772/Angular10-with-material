@@ -1,0 +1,7 @@
+<h2 class='page-title'>Role Definition</h2>
+<div class="page-container">
+    <app-monthly *ngIf="monthlyTemplateListLength > 0" [monthlyTemplateList] = "monthlyTemplateList"></app-monthly>
+</div>
+<div class="page-container">
+    <app-quarterly *ngIf="quartelyTemplateListLength > 0" [quartelyTemplateList] = "quartelyTemplateList"></app-quarterly>
+</div>
