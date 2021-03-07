@@ -8,12 +8,14 @@ import { WebApiService } from '../web-api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RestatementService {
+export class RestatementService extends WebApiService{
 
-  constructor(private webApiService: WebApiService) { }
+  constructor(protected http: HttpClient) {
+    super(http)
+  }
 
   getCommentsList(apiURL:string, httpParams?: HttpParams): Observable<CommentsList[]> {
-    return this.webApiService.baseHttpGetRequest(apiURL, httpParams)
+    return this.baseHttpGetRequest(apiURL, httpParams)
   }
 
 }

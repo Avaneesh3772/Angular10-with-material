@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WebApiService } from '../web-api.service';
@@ -7,11 +7,13 @@ import { TemplateDetails } from './admin.models';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminService {
+export class AdminService extends WebApiService{
 
-  constructor(private webApiService: WebApiService) { }
+  constructor(protected http: HttpClient) {
+    super(http)
+  }
 
   getUsersList(apiURL:string, httpParams?: HttpParams): Observable<TemplateDetails[]> {
-    return this.webApiService.baseHttpGetRequest(apiURL, httpParams)
+    return this.baseHttpGetRequest(apiURL, httpParams)
   }
 }
