@@ -7,13 +7,15 @@ import { WebApiService } from '../web-api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserAuthorizationService {
+export class UserAuthorizationService extends WebApiService{
 
-  constructor(private http: HttpClient, private webApiService: WebApiService) { }
+  constructor(protected http: HttpClient) {
+    super(http)
+  }
 
 
   getAppConfigData(apiURL:string, httpParams?: HttpParams): Observable<any[]> {
-    return this.webApiService.baseHttpGetRequest(apiURL, httpParams)
+    return this.baseHttpGetRequest(apiURL, httpParams)
   }
 
 }

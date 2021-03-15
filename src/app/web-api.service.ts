@@ -16,20 +16,20 @@ export class WebApiService {
   }
 
   baseHttpPostRequest(apiURL: string, body): Observable<any> {
-    let headers = new HttpHeaders({
+    let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(apiURL, JSON.stringify(body), {headers: headers})
+    return this.http.post(apiURL, JSON.stringify(body), {headers: httpHeaders})
                     .pipe(catchError(this.errorHandler));
   }
 
   baseHttpPutRequest(apiURL: string, body): Observable<any> {
-    let headers = new HttpHeaders({
+    let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.http.put(apiURL, JSON.stringify(body), {headers: headers})
+    return this.http.put(apiURL, JSON.stringify(body), {headers: httpHeaders})
                     .pipe(catchError(this.errorHandler));
   }
 

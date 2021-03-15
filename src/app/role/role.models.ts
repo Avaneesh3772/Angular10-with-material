@@ -8,4 +8,16 @@ export interface TemplateList {
     comments: string,
     user: string
 }
+export interface Users {
+  employeeIdentifier: number,
+  firstName: string,
+  lastName: string
+}
+
+export interface UsersRole {
+  employeeIdentifier: number,
+  roleDescription: string,
+  roleName: string,
+  roleType: string;
+}
 

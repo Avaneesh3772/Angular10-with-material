@@ -42,7 +42,7 @@ export class DialogPostCommentsComponent implements OnInit {
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
 }

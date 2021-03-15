@@ -46,7 +46,7 @@
      </div>
    </div>
 
-   <div class="form-container" [class.error]="EmpConfirmPassword.touched && EmpConfirmPassword.errors">
+   <div class="form-container" [class.error]="EmpJoiningDate.touched && EmpJoiningDate.errors">
     <label for="confirmPassword"  class="labelName">Joining Date: </label>
     <mat-form-field appearance="fill">
       <input matInput [matDatepicker]="myDatePicker"
@@ -95,7 +95,7 @@
                 <input type="text" id="experience" formControlName="userExperience">
                 <div *ngIf="EmpExperience.touched && EmpExperience.errors" class="error-messages">
                   <p *ngIf="EmpExperience.errors?.required">This is a required field.</p>
-                  <p *ngIf="EmpExperience.errors?.pattern">This enter only numbers.</p>
+                  <p *ngIf="EmpExperience.errors?.pattern">Please enter only numbers.</p>
                 </div>
             </div>
             <div class="form-container"  [class.error]="EmpProficiency.touched && EmpProficiency.errors">
@@ -161,7 +161,7 @@
       </button>
     </div>
     <div class="button-row">
-        <button mat-raised-button [disabled]="!employeeForm.valid" color="primary"
+        <button mat-raised-button [disabled]="employeeForm.invalid" color="primary"
         type="submit" id="submit" name="submitButton">Submit Form Data</button>
     </div>
 </form>

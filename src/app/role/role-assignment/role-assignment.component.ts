@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { RoleConstants } from '../role.constants';
+import { UsersRole, Users } from '../role.models';
 import { RoleService } from '../role.service';
 
 @Component({
@@ -15,9 +16,9 @@ export class RoleAssignmentComponent implements OnInit {
   public filteredItem: any[];
   public dataSource: any[];
   public displayedColumns: string[] = RoleConstants.displayedColumns;
+  public userFullName: string;
   public userDataLoaded = false;
   public isUserDataAvailable = false;
-  public userFullName: string;
   public showResultBox: boolean = false;
   public noRecordsFound: boolean = false;
 
@@ -30,7 +31,7 @@ export class RoleAssignmentComponent implements OnInit {
   }
 
   getUserData() {
-      this.roleService.getUsersList(RoleConstants.roleAssignmentDataURL).subscribe((response: any[]) =>{
+      this.roleService.getUsersList(RoleConstants.roleAssignmentDataURL).subscribe((response: Users[]) =>{
         this.responseData = response;
     }, (error) =>{
       this.errorMessage = error.message;
@@ -41,7 +42,7 @@ export class RoleAssignmentComponent implements OnInit {
   subscribeToTextbox() {
     this.searchUser.valueChanges.subscribe(value => {
       this.filteredItem = this.responseData.filter(item => {
-        const fullName = item.firstName +' '+ item.lastName;
+        const fullName = `${item.firstName} ${item.lastName}`;
         return fullName.includes((value));
       });
 
@@ -65,8 +66,8 @@ export class RoleAssignmentComponent implements OnInit {
   selectedValue(item) {
     this.isUserDataAvailable = true;
     this.showResultBox = false;
-    this.userFullName = item.firstName +' '+ item.lastName;
-    this.roleService.getUserFullDetails(RoleConstants.roleAssignmentUserDataURL).subscribe((response: any[]) =>{
+    this.userFullName = `${item.firstName} ${item.lastName}`;
+    this.roleService.getUserFullDetails(RoleConstants.roleAssignmentUserDataURL).subscribe((response: UsersRole[]) =>{
       this.userDataLoaded = true;
 
       this.dataSource = response.filter((eachElement) => {

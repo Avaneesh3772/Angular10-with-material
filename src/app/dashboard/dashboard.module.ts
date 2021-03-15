@@ -7,7 +7,10 @@ import { DialogUserinfoComponent } from './dialog-userinfo/dialog-userinfo.compo
 
 
 @NgModule({
-  declarations: [DashboardComponent, DialogUserinfoComponent],
+  declarations: [
+    DashboardComponent,
+    DialogUserinfoComponent
+  ],
   imports: [
     DashboardRoutingModule,
     AngularMaterialModule,

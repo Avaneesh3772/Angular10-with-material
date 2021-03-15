@@ -14,9 +14,10 @@ export class TrackComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private appCommonService : AppCommonService) {
-    this.getCommentID = this.activatedRoute.snapshot.params.id;
-  }
+    private appCommonService : AppCommonService){
+      console.log('this.activatedRoute.snapshot', this.activatedRoute.snapshot);
+      this.getCommentID = this.activatedRoute.snapshot.params.id;
+    }
 
   ngOnInit(): void {
     this.appCommonService.getCommentData().subscribe((response: CommentsList[]) =>{

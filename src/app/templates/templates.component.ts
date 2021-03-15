@@ -45,8 +45,14 @@ export class TemplatesComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      this.createNewResource(result);
+
+      if(result && Object.keys(result).length === 3) {
+            this.createNewResource(result);
+      }
+
+      /* if(result && result.hasOwnProperty('body') && result.hasOwnProperty('title') && result.hasOwnProperty('userId')) {
+        this.createNewResource(result);
+      } */
     });
   }
 

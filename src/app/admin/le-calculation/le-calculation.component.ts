@@ -34,7 +34,7 @@ export class LeCalculationComponent implements OnInit {
   public maxdate = moment();
 
 
-  constructor(private fb: FormBuilder) {    }
+  constructor(private formBuilder: FormBuilder) {    }
 
   get EmpName():FormControl  { return this.employeeForm.get('userName') as FormControl }
   get EmpAge():FormControl  { return this.employeeForm.get('userAge') as FormControl }
@@ -61,7 +61,7 @@ export class LeCalculationComponent implements OnInit {
      }) */
 
 
-     this.employeeForm = this.fb.group({
+     this.employeeForm = this.formBuilder.group({
       userName: ['',[Validators.required, Validators.minLength(3), Validators.maxLength(8)]],
       userAge: ['',[Validators.required, AgeCustomValidator]],
       password: ['', [Validators.required]],
@@ -69,16 +69,18 @@ export class LeCalculationComponent implements OnInit {
       joiningDate: [this.maxdate, [Validators.required]],
       userEmail: [null, []],
       promotionalOffer: [false],
-      skills: this.fb.group({
+      skills: this.formBuilder.group({
         userSkills: ['', [Validators.required]],
         userExperience: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
         userProficiency: ['', [Validators.required]]
       }),
-      qualification: this.fb.array([this.createQualification()])
+      qualification: this.formBuilder.array([this.createQualification()])
      }, { validator: PasswordValidator });
 
 
      this.employeeForm.get('userEmail').disable();
+
+
 
      this.employeeForm.get('userName').valueChanges.subscribe(value => {
        this.char = value;
@@ -101,11 +103,37 @@ export class LeCalculationComponent implements OnInit {
         }
         email.updateValueAndValidity();
      })
+
+     // Moment JS Date and Time Formatting Examples for Learning
+     // By default, moment parses and displays in local time.
+
+     console.log(`current time is ${moment()}`); // Sun Mar 14 2021 19:22:26 GMT-0400
+     console.log(`Current Local date and time Format is ${moment().format()}`); // 2021-03-14T19:22:26-04:00
+     console.log(`Current Month Year ${moment().format("MMYYYY")}`);// 032021
+     console.log(`L Format Date ${moment().format("L")}`);// 03/14/2021 as per USA standards i.e. MMDDYYYY
+     console.log(`Current Date Day Month Year ${moment().format("dddd MMM Mo YYYY")}`);//Sunday Mar 3rd 2021
+     console.log(`Current Local date time Format ${moment().format("MM-DD-YYYY")}`);// 03-14-2021
+     console.log(`moment from a string is ${moment("1995-12-25")}`);// Mon Dec 25 1995 00:00:00 GMT-0500
+     console.log(`string plus format moment is ${moment("12-25-1995", "MM-DD-YYYY")}`);// Mon Dec 25 1995 00:00:00 GMT-0500
+     console.log(`Array moment is ${moment([2010, 1, 14, 15, 25, 50, 125])}`); // Sun Feb 14 2010 15:25:50 GMT-0500
+     console.log(`Array moment is ${moment([2010, 6, 10])}`);// Sat Jul 10 2010 00:00:00 GMT-0400
+     console.log(`Moment Validation ${moment().isValid()}`); // true
+     console.log(`FromNow Method ${moment("2020-12-25").fromNow()}`); // 3 months ago
+     console.log(`Add Method to add 1 year in current year ${moment().add(1, "year")}`); // Mon Mar 14 2022 19:37:27 GMT-0400
+     console.log(`Substract Method to Substract 5 year ${moment().subtract(5, "years")}`); // Mon Mar 14 2016 19:57:56 GMT-0400
+     console.log(`Diff Method for Time difference in days ${moment().diff(moment("2010-12-25"), "days")}`); // 3732
+     console.log(`isSame Method to compare date ${moment("2010-12-25").isSame("2010-12-25")}`); // true
+     console.log(`isBefore Method to check date ${moment("2010-12-25").isBefore("2010-12-26")}`); // true
+     // If you want to parse or display a moment in UTC, you can use moment.utc() instead of moment().
+     // While in UTC mode, all display methods will display in UTC time instead of local time.
+     console.log(`UTC date and time is ${moment.utc()}`);// Sun Mar 14 2021 23:24:28 GMT+0000
+     console.log(`UTC date and time Format  is ${moment.utc().format()}`);// 2021-03-14T23:24:28Z
+
+
   }
 
     createQualification(): FormGroup {
-      console.log('createQualification')
-      return this.fb.group({
+      return this.formBuilder.group({
         userQualification: ['',[Validators.required, Validators.minLength(3)]],
         userUniversity: ['', [Validators.required, Validators.minLength(5)]]
       })
@@ -120,13 +148,14 @@ export class LeCalculationComponent implements OnInit {
     }
 
     updateProficiency(event) {
-      console.log(event.target.value)
+      console.log(`updateProficiency value is ${event.target.value}`);
       this.EmpProficiency.setValue(event.target.value, {
         onlySelf: true
       })
     }
 
     onSubmit() {
+      this.employeeForm.get('joiningDate').setValue(this.employeeForm.value.joiningDate.format('L'))
       console.log("this.employeeForm", this.employeeForm);
       console.log("this.employeeForm", this.employeeForm.value);
     }
